@@ -1,6 +1,7 @@
 # Refer with https://sechurity.com/this-custom-script-literally-saved-me-from-failing-oscp/
 # Helper script by @sechurity
 # Create a log directory, a log file and start logging
+# Useful when conducting assessment, i add on features to remove any logs that is older than 3 days
 
 #!/bin/bash 
 if [ -z "${UNDER_SCRIPT}" ]; then
