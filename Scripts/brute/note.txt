@@ -1,0 +1,23 @@
+Features
+✅ **Auto-checks if the password is already cracked online**  
+✅ **Supports multiple hash formats & detection**  
+✅ **Parallel processing enabled by default (can be disabled with** `**--no-parallel**`**)**  
+✅ **Supports Hashcat for GPU-based cracking**  
+✅ **Credential spraying for lateral movement with target IP specification**
+
+Cmd
+Default
+- brute.sh -h <hash>
+  
+Password Spraying
+- brute.sh -h <hash> --spray usernames.txt -t 192.168.1.100
+
+Use Hashcat Instead of John The Ripper by Default
+- brute.sh -h <hash> --hashcat
+
+Use other wordlist instead of rockyou
+- brute.sh -h <hash> -w /path/to/custom_wordlist.txt
+
+Not brute force parallel that enabled by default
+- brute.sh -h <hash> --no-parallel
+
