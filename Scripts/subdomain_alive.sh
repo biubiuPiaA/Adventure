@@ -1,5 +1,7 @@
 #check the subdomain alive or not with nmap -Pn -p80,443 → -Pn → -Pn -p- 
 # ./subdomain_alive.sh subdomain.txt
+# Notes: purpose is to identify whether the subdomain alive or not with port scan instead of ping to get a more accurate response result in comparison shorter time 
+#unfinish, temp idea
 #!/bin/bash
 
 # Usage: ./domain_scan.sh subdomains.txt
