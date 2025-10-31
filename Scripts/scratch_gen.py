@@ -1,4 +1,5 @@
 # python3 & softlink to uername-anarchy (git clone via github)
+# scratch keywords from the website and gen potentil username for further brute-force or password spray
 #!/usr/bin/env python3
 
 import requests
