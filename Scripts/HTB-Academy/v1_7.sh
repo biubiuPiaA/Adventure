@@ -1,3 +1,4 @@
+#features add-on in the future: rto: domain& subdomain info collect, threat-intel feed collect with API key
 #!/bin/bash
 
 ############################################################
